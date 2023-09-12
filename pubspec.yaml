@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+#  chat:
+#    path: ./
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -37,6 +39,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   rethink_db_ns: ^0.0.4
   encrypt: ^5.0.1
+  sqflite: ^2.3.0
 
 dev_dependencies:
   flutter_test:
