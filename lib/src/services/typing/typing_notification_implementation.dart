@@ -5,6 +5,8 @@ import 'package:chat1/src/models/user.dart';
 import 'package:chat1/src/services/typing/typing_notification_service.dart';
 import 'package:rethink_db_ns/rethink_db_ns.dart';
 
+import '../user/user_service_contract.dart';
+
 class TypingNotification implements ITypingNotification{
 
   late final Connection _connection;
@@ -13,12 +15,16 @@ class TypingNotification implements ITypingNotification{
 
   late StreamSubscription _changeFeed;
 
-  TypingNotification(this._r, this._connection);
+  IUserService _userService;
+
+  TypingNotification(this._r, this._connection,this._userService);
 
 
   @override
-  Future<bool> send({required TypingEvent event, required User to}) async {
-    if (!to.active){
+  Future<bool> send({required TypingEvent event}) async {
+
+    final receiver = await _userService.fetch(event.to);
+    if (!receiver.active){
       return false;
     }
 

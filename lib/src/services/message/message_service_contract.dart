@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import '../../models/user.dart';
 
 abstract class IMessageService{
-  Future<bool> send(Message message);
+  Future<Message> send(Message message);
   Stream<Message> messages({required User activeUser});
   dispose();
 }

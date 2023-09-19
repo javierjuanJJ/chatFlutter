@@ -32,14 +32,14 @@ class MessageService implements IMessageService{
   }
 
   @override
-  Future<bool> send(Message message) async {
+  Future<Message> send(Message message) async {
 
     var data = message.toJson();
     data['contents'] = _encryption.encryption(message.content);
 
 
-    Map record = await r.table('messages').insert(data).run(_connection);
-    return record['inserted'] == 1;
+    Map record = await r.table('messages').insert(data, {'return_changes' : true}).run(_connection);
+    return Message.fromJson(record['changes'].first['new_val']);
   }
 
   void _startReceivingMessages(User activeUser) {

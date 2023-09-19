@@ -54,6 +54,7 @@ class ReceiptService implements IReceiptService{
 
         if (feedData['new_val'] != null){
           final receipt = _receiptFromFeed(feedData);
+          _removeDeliveredReceipt(receipt);
           _controller.sink.add(receipt);
 
         }
